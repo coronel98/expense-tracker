@@ -68,16 +68,7 @@
   const saveTransactionsToLocalStorage = () => {
     localStorage.setItem('transactions', JSON.stringify(transactions.value))
   }
-  
-  //first loads
-  onMounted( () => {
-    const savedTransactions = JSON.parse(localStorage.getItem('transactions'))
 
-    if(savedTransactions)
-    {
-      transactions.value = savedTransactions
-    }
-  })
 
 </script>
 
