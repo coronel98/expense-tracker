@@ -1,6 +1,7 @@
 <script setup>
   import Header from './components/Header.vue';
   import Balance from './components/Balance.vue';
+  import IncomeExpenses from './components/IncomeExpenses.vue';
   import {ref, computed} from 'vue'
 
   const transactions = ref([
@@ -18,14 +19,30 @@
       }, 0)
     })
 
+    //get the income by adding all positive values
+    const income = computed( () => {
+      return transactions.value 
+      .filter((transaction) => transaction.amount > 0)
+      .reduce((acc, transaction) => {
+        return acc + transaction.amount
+      }, 0)
+    })
 
-    
+    //get the expenses by adding all negtive values
+    const expense = computed( () => {
+      return transactions.value 
+      .filter((transaction) => transaction.amount < 0)
+      .reduce((acc, transaction) => {
+        return acc + transaction.amount
+      }, 0)
+    })
+
 </script>
 
 <template>
-  <header></header>
+  <header>Expense tracker 2024</header>
   <div class="container">
-    <balance :total="total"></balance>
-
+    <Balance :total="total"></Balance>
+    <IncomeExpenses :income="income" :expense="expense"> </IncomeExpenses>
   </div>
 </template>
